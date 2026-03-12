@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: "Crimson Pro", Georgia, "Times New Roman", Times, serif;
+    padding: 20px;
+  }
+
+  /* 1. 新增容器：設定 Flex 佈局 */
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;      /* 空間不足時自動換行 */
+    gap: 20px;            /* 卡片之間的間距 */
+    justify-content: left; /* 左對齊 */
+  }
+
+  .flip-card {
+    background-color: transparent;
+    /* 2. 調整寬度：基礎寬度 250px，但在小螢幕會縮小 */
+    width: 200px;
+    height: 300px;
+    perspective: 1000px;
+    /* 讓卡片在 Flex 容器中能正確伸縮 */
+    flex: 0 1 auto; 
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    /* 修正內容溢出 */
+    overflow: hidden;
+  }
+
+  .flip-card-front {
+    background-color: #bbb;
+    color: black;
+  }
+  
+  .inner-text {
+    position: absolute;
+    top: 30px;       /* 距離 30px */
+    left: 0;
+    right: 0;
+    color: white;
+    padding: 8px;
+  }
+
+  /* 讓圖片填滿容器且不變形 */
+  .flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .flip-card-back {
+    color: black;
+    transform: rotateY(180deg);
+    padding: 8px; /* 增加文字內距 */
+    box-sizing: border-box;
+  }
+  
+  .legend {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;               /* space between label and the swatches group */
+	margin-bottom: 20px;
+  }
+  
+  .legend-title {
+    font-weight: 600;
+	font-size: 1.2em;
+    margin-right: 6px;
+    color: #111827;
+    white-space: nowrap;
+  }
+  
+  .items {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;               /* space between each swatch+label pair */
+    flex-wrap: wrap;               /* allow individual item pairs to wrap */
+    /* allow items to occupy remaining space on the same row as title if possible */
+    flex: 1 1 auto;
+    min-width: 0;                  /* allow flex children to shrink properly */
+  }
+  
+  .item {
+    font-size: 1.2em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    color: var(--muted-color);
+    font-weight: 500;
+  }
+  
+  /* small rounded square swatch */
+  .swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    display: inline-block;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.04) inset;
+    flex: 0 0 auto;
+  }
+  
+  /* colors of swatch*/
+  .swatch.begin { background: #8b2b2f; }    
+  .swatch.develop { background: #826033; }  
+  .swatch.sustain { background: #255f49; } 
+</style>
+</head>
+<body>
+
+<!-- legend -->
+<div class="legend" aria-label="Project stage legend">
+  <div class="legend-title">Project stage</div>
+
+  <div class="items">
+    <div class="item">
+      <span class="swatch begin" aria-hidden="true"></span>
+      <span>Begin Your Impact</span>
+    </div>
+	
+    <div class="item">
+      <span class="swatch develop" aria-hidden="true"></span>
+      <span>Develop Your Impact</span>
+    </div>
+
+    <div class="item">
+      <span class="swatch sustain" aria-hidden="true"></span>
+      <span>Sustain Your Impact</span>
+    </div>
+  </div>
+</div>
+
+<!-- 將卡片包裹在容器中 -->
+<div class="cards-container">
+  
+  <!-- 卡片 (重複 5 次) -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="FiveSteps_card1.jpg" alt="DESIGN">
+		<div class="inner-text"><h1 style="line-height: 1;">DESIGN</h1><p>Set goals and devise strategies</p></div>
+      </div>
+      <div class="flip-card-back" style="background-color: #dcbfc0;">
+        <h1>DESIGN</h1><hr>
+        <p>Plan the impact you want to achieve and integrate impact into your research from the outset</p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="FiveSteps_card2.jpg" alt="REPRESENT">
+		<div class="inner-text"><h1 style="line-height: 1;">REPRESENT</h1><p>Embed key stakeholders</p></div>
+      </div>
+      <div class="flip-card-back" style="background-color: #dcbfc0;">
+        <h1>REPRESENT</h1><hr>
+        <p>Represent the needs and priorities of those who might be interested in or use your research</p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="FiveSteps_card3.jpg" alt="ENGAGE">
+		<div class="inner-text"><h1 style="line-height: 1;">ENGAGE</h1><p>Build long-term relationships</p></div>
+      </div>
+      <div class="flip-card-back" style="background-color: #dacfc1;">
+        <h1>ENGAGE</h1><hr>
+        <p>Build long-term, two-way, and trusting relationships with those who will use your research, and co-generate new knowledge</p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="FiveSteps_card4.jpg" alt="ACCELERATE">
+		<div class="inner-text"><h1 style="line-height: 1;">ACCELERATE</h1><p>Identify quick wins</p></div>
+      </div>
+      <div class="flip-card-back" style="background-color: #dacfc1;">
+        <h1>ACCELERATE</h1><hr>
+        <p>Deliver tangible results to reward and keep people engaged with your work</p> 
+      </div>
+    </div>
+  </div>
+
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="FiveSteps_card5.jpg" alt="REFLECT & SUSTAIN">
+		<div class="inner-text"><h1 style="line-height: 1;">REFLECT</h1><p>Keep track of what works</p></div>
+      </div>
+      <div class="flip-card-back" style="background-color: #bdcfc8;">
+        <h1>REFLECT</h1><hr>
+        <p>Monitor and reflect on your work to learn and refine your practice, and continue nurturing relationships in the long term</p> 
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
